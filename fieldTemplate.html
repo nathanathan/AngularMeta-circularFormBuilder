@@ -1,0 +1,36 @@
+<div 
+  class="field"
+  ng-hide="eval field.hide"
+  ng-switch on="field.type" >
+  <h3>{{field.name}}</h3>
+  <div 
+    data-ng-switch-when="text">
+    <input 
+      type="text" 
+      ng-model="model[field.name]" 
+      placeholder="Name" 
+      required />
+  </div>
+  <div 
+    class="select"
+    data-ng-switch-when="select">
+    <select 
+      ng-model="model[field.name]" 
+      ng-options="x.name as x.name for x in field.options">
+    </select>
+      
+  </div>
+  <div
+    class="repeat"
+    data-ng-switch-when="repeat">
+    <ul
+      class="repeat-group"
+      ng-repeat="model in model[field.name]">
+      <ul
+        ng-repeat="field in field.fields"
+        ng-include="'fieldTemplate.html'">
+      </ul>
+    </ul>
+    <a href ng-click="add(model, field)">Add</a>
+  </div>
+</div> 

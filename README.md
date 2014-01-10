@@ -1,7 +1,9 @@
-Angular-Meta-circular-Forms
-===========================
+Angular Meta-circular Form Builder
+==================================
 
-The data of form A defines the schema of form B and vice versa
+A meta-circular form builder is a form builder that can build itself.
+
+In the demo, the data of form A defines the schema of form B and vice versa.
 
 #### Notes
 

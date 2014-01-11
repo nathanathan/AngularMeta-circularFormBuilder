@@ -16,3 +16,5 @@ The other approach is to view the field value as being bound to a field entity
 so the value will stay when the field's name is changed.
 The code in this repo implements the former approach,
 but I've experimented with the later in this jsfiddle: http://jsfiddle.net/YF57A/7/
+
+If you remove the circular refrences you can also use this as a traditional form builder.

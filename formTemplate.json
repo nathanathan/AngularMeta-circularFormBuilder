@@ -1,0 +1,33 @@
+{
+    "name" : "fields",
+    "type" : "repeat",
+    "fields" : [
+        {
+            "name" : "name",
+            "type" : "text"
+        }, {
+            "name" : "type",
+            "type" : "select",
+            "options" : [{
+              "name" :"select"
+            }, {
+              "name" :"text"
+            }, {
+              "name" :"repeat"
+            }]
+        }, {
+            "name" : "options",
+            "type" : "repeat",
+            "hide" : "model.type != \"select\"",
+            "fields" : [
+              {
+                  "name" : "name",
+                  "type" : "text"
+              }
+            ]
+        }, {
+            "name" : "hide",
+            "type" : "text"
+        }
+    ]
+}

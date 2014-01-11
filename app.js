@@ -1,3 +1,4 @@
+var angular;
 var app = angular.module("myApp", []);
 
 app.config(function($provide) {
@@ -7,7 +8,8 @@ app.config(function($provide) {
       if(/^eval /.test(expression)) {
         var initialParse = $delegate(expression.substr(5));
         return function(context, locals){
-          return $delegate(initialParse(context, locals))(context, locals);
+          var initialApplication = initialParse(context, locals);
+          return $delegate(initialApplication)(context, locals);
         };
       }
       return $delegate(expression);
@@ -15,86 +17,33 @@ app.config(function($provide) {
   });
 });
 
-
-app.factory("schemaA", function() {
+app.factory("schemaData", function($http) {
+  return $http.get('formTemplate.json').then(function(res){
     return {
-        name : 'fields',
-        type : 'repeat',
-        fields : [
-            {
-                name : 'name',
-                type : 'text'
-            }, {
-                name : 'type',
-                type : 'select',
-                options : [{
-                  name :'select'
-                }, {
-                  name :'text'
-                }, {
-                  name :'repeat'
-                }]
-            }, {
-                name : 'options',
-                type : 'repeat',
-                hide : 'model.type != "select"',
-                fields : [
-                  {
-                      name : 'name',
-                      type : 'text'
-                  }
-                ]
-            }
-        ]
+      schema : res.data,
+      data : angular.copy(res.data)
     };
+  });
 });
 
-app.factory("dataA", function() {
-    return {
-        name : 'fields',
-        type : 'repeat',
-        fields : [
-            {
-                name : 'name',
-                type : 'text'
-            }, {
-                name : 'type',
-                type : 'select',
-                options : [{
-                  name :'select'
-                }, {
-                  name :'text'
-                }, {
-                  name :'repeat'
-                }]
-            }, {
-                name : 'options',
-                type : 'repeat',
-                hide : 'model.type != "select"',
-                fields : [
-                  {
-                      name : 'name',
-                      type : 'text'
-                  }
-                ]
-            }
-        ]
-    };
-});
 app.factory("addFunction", function() {
   return function(model, field) {
     if(!angular.isArray(model[field.name])) model[field.name] = [];
     model[field.name].push({});
   };
 });
-app.controller("formA", function($scope, schemaA, dataA, addFunction) {
-    $scope.add = addFunction;
-    $scope.field = schemaA;
-    $scope.model = dataA;
+app.controller("formA", function($scope, schemaData, addFunction) {
+  $scope.add = addFunction;
+  schemaData.then(function(v){
+    $scope.field = v.schema;
+    $scope.model = v.data;
+  });
 });
 
-app.controller("formB", function($scope, schemaA, dataA, addFunction) {
-    $scope.add = addFunction;
-    $scope.field = dataA;
-    $scope.model = schemaA;
+app.controller("formB", function($scope, schemaData, addFunction) {
+  $scope.add = addFunction;
+  schemaData.then(function(v){
+    $scope.field = v.data;
+    $scope.model = v.schema;
+  });
 });

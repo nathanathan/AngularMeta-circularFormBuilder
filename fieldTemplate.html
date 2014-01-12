@@ -20,17 +20,18 @@
     </select>
       
   </div>
-  <div
+  <fieldset
     class="repeat"
     data-ng-switch-when="repeat">
-    <ul
+    <div
       class="repeat-group"
       ng-repeat="model in model[field.name]">
-      <ul
+      <div
         ng-repeat="field in field.fields"
         ng-include="'fieldTemplate.html'">
-      </ul>
-    </ul>
+      </div>
+      <a href ng-click="remove($parent.model[field.name], model)">Remove</a>
+    </div>
     <a href ng-click="add(model, field)">Add</a>
-  </div>
+  </fieldset>
 </div> 

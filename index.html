@@ -7,18 +7,23 @@
 
 <style type='text/css'>
 .field {
-  padding: 0px 5px;
+  padding: 3px;
+  border-bottom: 1px solid lightgray;
 }
 .repeat {
-  
+  -webkit-box-shadow: inset 0px 0px 2px 1px rgba(0, 0, 0, 0.14);
 }
 .repeat-group {
-  background-color: rgba(131, 241, 237, 0.2);
+  padding: 5px;
+  margin: 5px;
+  border: 1px solid gray;
 }
 .form {
-  width: 49%;
+  margin: 1%;
+  width: 48%;
   display: inline-block;
-  outline: 1px solid teal;
+  outline: 1px solid black;
+  border: none;
   vertical-align: top;
 }
 </style>
@@ -43,9 +48,9 @@
     <div
       ng-include="'fieldTemplate.html'">
     </div>
-  </form>
-  
-  <form
+  </form><!--
+  Remove space between forms
+  --><form
     class="form"
     ng-controller="formB"
     novalidate>

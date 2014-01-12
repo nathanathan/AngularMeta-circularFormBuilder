@@ -32,16 +32,28 @@ app.factory("addFunction", function() {
     model[field.name].push({});
   };
 });
-app.controller("formA", function($scope, schemaData, addFunction) {
+app.factory("removeFunction", function() {
+  return function(fields, model) {
+    angular.forEach(fields, function(value, idx){
+      if(value === model) {
+        fields.splice(idx, 1);
+        return;
+      }
+    });
+  };
+});
+app.controller("formA", function($scope, schemaData, addFunction, removeFunction) {
   $scope.add = addFunction;
+  $scope.remove = removeFunction;
   schemaData.then(function(v){
     $scope.field = v.schema;
     $scope.model = v.data;
   });
 });
 
-app.controller("formB", function($scope, schemaData, addFunction) {
+app.controller("formB", function($scope, schemaData, addFunction, removeFunction) {
   $scope.add = addFunction;
+  $scope.remove = removeFunction;
   schemaData.then(function(v){
     $scope.field = v.data;
     $scope.model = v.schema;
